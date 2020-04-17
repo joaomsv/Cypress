@@ -13,9 +13,23 @@ describe('first test', function()
         cy.get('[value="Login"]').click()
         cy.get('#SettingsMenu').click()
         cy.get('#PeopleCentral').click()
+        cy.wait(1000)
         cy.get('.pull-right.mr-0').find('.mr-btn.mr-btn-primary').click()
         cy.get('#login').type('teste')
         cy.get('[name="fullName"]').type('João Teste')
+        cy.get('.mr-form-group').then(($el) => {
+            var i = 0;
+            var login
+            while($el.find('.mr-form-feedback.ng-binding.ng-scope').length)
+            {
+                login = 'teste' + i
+                cy.get('#login').clear()
+                cy.get('[name="fullName"]').clear()
+                cy.get('#login').type(login)
+                cy.get('[name="fullName"]').type('João Teste')
+                i++
+            }
+        })
         cy.get('#emailInputGroup').type('asdas@asdas.com')
         cy.get('.mr-tree-value').click()
         // cy.get('.mr-tree-results').contains('Default').click()
@@ -29,5 +43,6 @@ describe('first test', function()
             }
         })
         cy.get('#userGroupFormGroup select').select('number:1')
+        //cy.get('.mr-media-left').find('.mr-btn.mr-btn-clean').click()
     })
 })
