@@ -18,16 +18,15 @@ describe('first test', function()
         cy.get('#login').type('teste')
         cy.get('[name="fullName"]').type('João Teste')
         cy.get('.mr-form-group').then(($el) => {
-            var i = 0;
-            var login
-            while($el.find('.mr-form-feedback.ng-binding.ng-scope').length)
+            var login  
+            for (var i = 0;$el.find('.mr-form-feedback.ng-binding.ng-scope').length > 1;i++)
             {
                 login = 'teste' + i
                 cy.get('#login').clear()
                 cy.get('[name="fullName"]').clear()
                 cy.get('#login').type(login)
                 cy.get('[name="fullName"]').type('João Teste')
-                i++
+                $el = cy.get('.mr-form-group')
             }
         })
         cy.get('#emailInputGroup').type('asdas@asdas.com')
@@ -39,7 +38,7 @@ describe('first test', function()
             if(text.includes('PRESIDÊNCIA'))
             {   
                 $el.find('span.node-selector').click()
-                cy.log($el.text())
+                //cy.log($el.text())
             }
         })
         cy.get('#userGroupFormGroup select').select('number:1')
