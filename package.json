@@ -9,6 +9,10 @@
   "author": "Joao",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^4.4.0"
+    "cypress": "^4.4.0",
+    "cypress-dark": "^1.7.14"
+  },
+  "dependencies": {
+    "prettier": "^2.0.5"
   }
 }
