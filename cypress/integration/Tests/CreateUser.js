@@ -9,27 +9,59 @@ describe('first test', function () {
     cy.visit('https://automation.mereo.com/')
     cy.server()
     cy.get('#languageSelect').click()
-    cy.route('POST','/').as('waitChangeCulture')
+    cy.route('POST', '/').as('waitChangeCulture')
     cy.get('[value="pt-BR"]').click()
     cy.wait('@waitChangeCulture')
     cy.get('#txtUser').type(userLogin)
     cy.get('#txtPsw').type(password)
     cy.get('[value="Login"]').click()
     cy.get('#SettingsMenu').click()
-    cy.route('POST','api/services/app/systemConfig/GetCurrentCulture').as('GetCurrentCulture')
-    cy.route('POST','api/services/app/employee/GetLoggedUser').as('GetLoggedUser')
-    cy.route('POST','api/services/app/permission/CheckUserPermission').as('CheckUserPermission')
-    cy.route('POST','api/services/app/person/GetUserGroups').as('GetUserGroups')
-    cy.route('POST','api/services/app/person/GetLanguages').as('GetLanguages')
-    cy.route('POST','api/services/app/languageLevel/GetLanguage').as('GetLanguage')
-    cy.route('POST','api/services/app/languageLevel/GetListCombobox').as('GetListCombobox')
-    cy.route('POST','api/services/app/skillCategory/GetSkillCategoryList').as('GetSkillCategoryList')
-    cy.route('POST','api/services/app/person/GetList').as('GetList')
-    cy.route('POST','api/services/app/areaTree/GetTree').as('GetTree')
-    cy.route('POST','api/services/app/areaTree/GetLoggedUserId').as('GetLoggedUserId')
-    cy.route('POST','api/services/app/skillKnowledge/GetSkillKnowledgeList').as('GetSkillKnowledgeList')
+    cy.route('POST', 'api/services/app/systemConfig/GetCurrentCulture').as(
+      'GetCurrentCulture'
+    )
+    cy.route('POST', 'api/services/app/employee/GetLoggedUser').as(
+      'GetLoggedUser'
+    )
+    cy.route('POST', 'api/services/app/permission/CheckUserPermission').as(
+      'CheckUserPermission'
+    )
+    cy.route('POST', 'api/services/app/person/GetUserGroups').as(
+      'GetUserGroups'
+    )
+    cy.route('POST', 'api/services/app/person/GetLanguages').as('GetLanguages')
+    cy.route('POST', 'api/services/app/languageLevel/GetLanguage').as(
+      'GetLanguage'
+    )
+    cy.route('POST', 'api/services/app/languageLevel/GetListCombobox').as(
+      'GetListCombobox'
+    )
+    cy.route('POST', 'api/services/app/skillCategory/GetSkillCategoryList').as(
+      'GetSkillCategoryList'
+    )
+    cy.route('POST', 'api/services/app/person/GetList').as('GetList')
+    cy.route('POST', 'api/services/app/areaTree/GetTree').as('GetTree')
+    cy.route('POST', 'api/services/app/areaTree/GetLoggedUserId').as(
+      'GetLoggedUserId'
+    )
+    cy.route(
+      'POST',
+      'api/services/app/skillKnowledge/GetSkillKnowledgeList'
+    ).as('GetSkillKnowledgeList')
     cy.get('#PeopleCentral').click()
-    cy.wait(['@GetCurrentCulture','@GetLoggedUser','@CheckUserPermission','@GetUserGroups','@GetLanguages','@GetLanguage','@GetListCombobox','@GetSkillCategoryList','@GetList','@GetTree','@GetLoggedUserId','@GetSkillKnowledgeList'])
+    cy.wait([
+      '@GetCurrentCulture',
+      '@GetLoggedUser',
+      '@CheckUserPermission',
+      '@GetUserGroups',
+      '@GetLanguages',
+      '@GetLanguage',
+      '@GetListCombobox',
+      '@GetSkillCategoryList',
+      '@GetList',
+      '@GetTree',
+      '@GetLoggedUserId',
+      '@GetSkillKnowledgeList',
+    ])
     cy.get('.pull-right.mr-0').find('.mr-btn.mr-btn-primary').click()
     cy.route('POST', 'api/services/app/person/ValidateLogin').as(
       'ValidateLogin'
@@ -54,25 +86,23 @@ describe('first test', function () {
     //     }
     // })
     cy.get('.mr-form-group').first().as('invalidUserCheck')
-    cy.get('@invalidUserCheck')
-      .then($e1 => {
-        var invalidLogin = $e1.text().includes('Login já existe.')
-        for (var i = 0; i < 5 && invalidLogin; i++) {
+    cy.get('@invalidUserCheck').then($e1 => {
+      var invalidLogin = $e1.text().includes('Login já existe.')
+      for (var i = 0; i < 5 && invalidLogin; i++) {
+        cy.log(invalidLogin)
+        login = 'teste' + i
+        cy.get('#login').clear()
+        cy.get('[name="fullName"]').clear()
+        cy.get('#login').type(login)
+        cy.get('[name="fullName"]').type(name)
+        cy.wait('@ValidateLogin')
+        cy.get('@invalidUserCheck').then($e2 => {
+          invalidLogin = false
+          invalidLogin = $e2.text().includes('Login já existe.')
           cy.log(invalidLogin)
-          login = 'teste' + i
-          cy.get('#login').clear()
-          cy.get('[name="fullName"]').clear()
-          cy.get('#login').type(login)
-          cy.get('[name="fullName"]').type(name)
-          cy.wait('@ValidateLogin')
-          cy.get('@invalidUserCheck')
-            .then($e2 => {
-              invalidLogin = false
-              invalidLogin = $e2.text().includes('Login já existe.')
-              cy.log(invalidLogin)
-            })
-        }
-      })
+        })
+      }
+    })
     cy.get('#emailInputGroup').type('asdas@asdas.com')
     cy.get('.mr-tree-value').click()
     cy.get('div.node.ng-scope').each(($el, index, $list) => {
