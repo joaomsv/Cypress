@@ -1,11 +1,24 @@
 /// <reference types="Cypress" />
 
+function LoginGenerator(counter, loginText, name) {
+  let login = loginText + counter
+  cy.get('#login').clear()
+  cy.get('[name="fullName"]').clear()
+  cy.get('#login').type(login)
+  cy.get('[name="fullName"]').type(name)
+  cy.wait('@ValidateLogin').its('status').should('eq', 200)
+  cy.get('@invalidUserCheck').then($e2 => {
+    if ($e2.text().includes('Login já existe.'))
+      LoginGenerator(counter + 1, loginText, name)
+  })
+}
+
 describe('first test', function () {
   it('test1', function () {
-    var userLogin = 'suporte.mereo'
-    var password = 'Ix57y81l*'
+    const userLogin = 'suporte.mereo'
+    const password = 'Ix57y81l*'
     var login = 'teste'
-    var name = 'João Teste'
+    const name = 'João Teste'
     cy.visit('https://automation.mereo.com/')
     cy.server()
     cy.get('#languageSelect').click()
@@ -68,24 +81,11 @@ describe('first test', function () {
     )
     cy.get('#login').type(login)
     cy.get('[name="fullName"]').type(name)
-    cy.wait('@ValidateLogin')
+    cy.wait('@ValidateLogin').its('status').should('eq', 200)
     cy.get('.mr-form-group').first().as('invalidUserCheck')
     cy.get('@invalidUserCheck').then($e1 => {
-      var invalidLogin = $e1.text().includes('Login já existe.')
-      for (var i = 0; i < 5 && invalidLogin; i++) {
-        cy.log(invalidLogin)
-        login = 'teste' + i
-        cy.get('#login').clear()
-        cy.get('[name="fullName"]').clear()
-        cy.get('#login').type(login)
-        cy.get('[name="fullName"]').type(name)
-        cy.wait('@ValidateLogin')
-        cy.get('@invalidUserCheck').then($e2 => {
-          invalidLogin = false
-          invalidLogin = $e2.text().includes('Login já existe.')
-          cy.log(invalidLogin)
-        })
-      }
+      if ($e1.text().includes('Login já existe.'))
+        LoginGenerator(0, login, name)
     })
     cy.get('#emailInputGroup').type('asdas@asdas.com')
     cy.get('.mr-tree-value').click()
@@ -96,11 +96,14 @@ describe('first test', function () {
       }
     })
     cy.get('#userGroupFormGroup select').select('number:1')
-    // cy.get('.mr-btn.mr-btn-primary.pull-right.ng-binding').click()
-    // cy.get('.toast-message').should('have.text', 'Registro inserido com sucesso.')
-    // cy.get('.toast-message').then(($msg) => {
-    //     var text = $msg.text()
-    //     expect(text).to.equal('Registro inserido com sucesso.')
+    cy.get('.mr-btn.mr-btn-primary.pull-right.ng-binding').click()
+    cy.get('.toast-message').should(
+      'have.text',
+      'Registro inserido com sucesso.'
+    )
+    // cy.get('.toast-message').then($msg => {
+    //   var text = $msg.text()
+    //   expect(text).to.equal('Registro inserido com sucesso.')
     // })
   })
 })
