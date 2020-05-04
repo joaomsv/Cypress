@@ -69,22 +69,6 @@ describe('first test', function () {
     cy.get('#login').type(login)
     cy.get('[name="fullName"]').type(name)
     cy.wait('@ValidateLogin')
-    // cy.get('.mr-form-group').first().then(($e1) => {
-    //     var text = $e1.find('.mr-form-feedback.ng-binding.ng-scope:visible').text()
-    //     for (var i = 0;i < 5 && text.includes('Login já existe.');i++)
-    //     {
-    //         login = 'teste' + i
-    //         cy.get('#login').clear()
-    //         cy.get('[name="fullName"]').clear()
-    //         cy.get('#login').type(login)
-    //         cy.get('[name="fullName"]').type(name)
-    //         cy.get('.mr-form-group').first().then(($e2) => {
-    //             text = ''
-    //             text = $e2.text()
-    //         })
-    //         cy.log(text)
-    //     }
-    // })
     cy.get('.mr-form-group').first().as('invalidUserCheck')
     cy.get('@invalidUserCheck').then($e1 => {
       var invalidLogin = $e1.text().includes('Login já existe.')
