@@ -16,7 +16,7 @@ function LoginGenerator(counter, loginText, name) {
 describe('first test', function () {
   it('test1', function () {
     const userLogin = 'suporte.mereo'
-    const password = 'Ix57y81l*'
+    const password = '2b785"iHj'
     var login = 'teste'
     const name = 'João Teste'
     cy.visit('https://automation.mereo.com/')
