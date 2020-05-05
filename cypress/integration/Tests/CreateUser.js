@@ -7,10 +7,11 @@ function LoginGenerator(counter, loginText, name) {
   cy.get('#login').type(login)
   cy.get('[name="fullName"]').type(name)
   cy.wait('@ValidateLogin').its('status').should('eq', 200)
-  cy.get('@invalidUserCheck').then($e2 => {
-    if ($e2.text().includes('Login já existe.'))
-      LoginGenerator(counter + 1, loginText, name)
-  })
+  cy.get('@ValidateLogin')
+    .its('response.body.result.data.0.isValid')
+    .then(isValid => {
+      if (!isValid) LoginGenerator(counter + 1, loginText, name)
+    })
 }
 
 describe('first test', function () {
@@ -82,12 +83,11 @@ describe('first test', function () {
     cy.get('#login').type(login)
     cy.get('[name="fullName"]').type(name)
     cy.wait('@ValidateLogin').its('status').should('eq', 200)
-    cy.get('.mr-form-group').first().as('invalidUserCheck')
-    cy.get('@invalidUserCheck').then($e1 => {
-      if ($e1.text().includes('Login já existe.'))
-        LoginGenerator(0, login, name)
-      cy.get('@invalidUserCheck').should('not.have.text', 'Login já existe.')
-    })
+    cy.get('@ValidateLogin')
+      .its('response.body.result.data.0.isValid')
+      .then(isValid => {
+        if (!isValid) LoginGenerator(0, login, name)
+      })
     cy.get('#emailInputGroup').type('asdas@asdas.com')
     cy.get('.mr-tree-value').click()
     cy.get('div.node.ng-scope').each(($el, index, $list) => {
