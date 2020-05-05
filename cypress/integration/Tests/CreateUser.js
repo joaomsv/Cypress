@@ -86,6 +86,7 @@ describe('first test', function () {
     cy.get('@invalidUserCheck').then($e1 => {
       if ($e1.text().includes('Login já existe.'))
         LoginGenerator(0, login, name)
+      cy.get('@invalidUserCheck').should('not.have.text', 'Login já existe.')
     })
     cy.get('#emailInputGroup').type('asdas@asdas.com')
     cy.get('.mr-tree-value').click()
@@ -101,9 +102,5 @@ describe('first test', function () {
       'have.text',
       'Registro inserido com sucesso.'
     )
-    // cy.get('.toast-message').then($msg => {
-    //   var text = $msg.text()
-    //   expect(text).to.equal('Registro inserido com sucesso.')
-    // })
   })
 })
