@@ -6,7 +6,7 @@ function LoginGenerator(counter, loginText, name) {
   cy.get('[name="fullName"]').clear()
   cy.get('#login').type(login)
   cy.get('[name="fullName"]').type(name)
-  cy.wait('@ValidateLogin').its('status').should('eq', 200)
+  cy.wait('@ValidateLogin',{requestTimeout:10000}).its('status').should('eq', 200)
   cy.get('@ValidateLogin')
     .its('response.body.result.data.0.isValid')
     .then(isValid => {
@@ -75,7 +75,7 @@ describe('first test', function () {
       '@GetTree',
       '@GetLoggedUserId',
       '@GetSkillKnowledgeList',
-    ])
+    ],{requestTimeout:10000})
     cy.get('.pull-right.mr-0').find('.mr-btn.mr-btn-primary').click()
     cy.route('POST', 'api/services/app/person/ValidateLogin').as(
       'ValidateLogin'
