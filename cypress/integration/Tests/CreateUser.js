@@ -1,19 +1,5 @@
 /// <reference types="Cypress" />
 
-function LoginGenerator(counter, loginText, name) {
-  let login = loginText + counter
-  cy.get('#login').clear()
-  cy.get('[name="fullName"]').clear()
-  cy.get('#login').type(login)
-  cy.get('[name="fullName"]').type(name)
-  cy.wait('@ValidateLogin',{requestTimeout:10000}).its('status').should('eq', 200)
-  cy.get('@ValidateLogin')
-    .its('response.body.result.data.0.isValid')
-    .then(isValid => {
-      if (!isValid) LoginGenerator(counter + 1, loginText, name)
-    })
-}
-
 describe('first test', function () {
   it('test1', function () {
     const userLogin = 'suporte.mereo'
@@ -86,7 +72,7 @@ describe('first test', function () {
     cy.get('@ValidateLogin')
       .its('response.body.result.data.0.isValid')
       .then(isValid => {
-        if (!isValid) LoginGenerator(0, login, name)
+        if (!isValid) cy.LoginGenerator(0, login, name)
       })
     cy.get('#emailInputGroup').type('asdas@asdas.com')
     cy.get('.mr-tree-value').click()

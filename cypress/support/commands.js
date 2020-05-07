@@ -23,3 +23,19 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('LoginGenerator', (counter, loginText, name) => {
+  let login = loginText + counter
+  cy.get('#login').clear()
+  cy.get('[name="fullName"]').clear()
+  cy.get('#login').type(login)
+  cy.get('[name="fullName"]').type(name)
+  cy.wait('@ValidateLogin', { requestTimeout: 10000 })
+    .its('status')
+    .should('eq', 200)
+  cy.get('@ValidateLogin')
+    .its('response.body.result.data.0.isValid')
+    .then(isValid => {
+      if (!isValid) cy.LoginGenerator(counter + 1, loginText, name)
+    })
+})
