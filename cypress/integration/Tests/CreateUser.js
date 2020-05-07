@@ -112,7 +112,6 @@ describe('first test', function () {
       cy.get('.mr-input-group').find('.mr-form-control').type($e1.val())
       cy.get('.mr-input-group').find('.mr-btn').click()
       cy.get('.mr-card-person.ng-scope').each(($e2, index, $list) => {
-        // cy.log($e2.find('.mr-card-face.mr-card-face--back .mr-card-body.text-center .mr-card-person-title').text())
         if (
           $e2
             .find(
