@@ -48,20 +48,23 @@ describe('first test', function () {
       'api/services/app/skillKnowledge/GetSkillKnowledgeList'
     ).as('GetSkillKnowledgeList')
     cy.get('#PeopleCentral').click()
-    cy.wait([
-      '@GetCurrentCulture',
-      '@GetLoggedUser',
-      '@CheckUserPermission',
-      '@GetUserGroups',
-      '@GetLanguages',
-      '@GetLanguage',
-      '@GetListCombobox',
-      '@GetSkillCategoryList',
-      '@GetList',
-      '@GetTree',
-      '@GetLoggedUserId',
-      '@GetSkillKnowledgeList',
-    ],{requestTimeout:10000})
+    cy.wait(
+      [
+        '@GetCurrentCulture',
+        '@GetLoggedUser',
+        '@CheckUserPermission',
+        '@GetUserGroups',
+        '@GetLanguages',
+        '@GetLanguage',
+        '@GetListCombobox',
+        '@GetSkillCategoryList',
+        '@GetList',
+        '@GetTree',
+        '@GetLoggedUserId',
+        '@GetSkillKnowledgeList',
+      ],
+      { requestTimeout: 10000 }
+    )
     cy.get('.pull-right.mr-0').find('.mr-btn.mr-btn-primary').click()
     cy.route('POST', 'api/services/app/person/ValidateLogin').as(
       'ValidateLogin'
@@ -88,5 +91,43 @@ describe('first test', function () {
       'have.text',
       'Registro inserido com sucesso.'
     )
+    cy.get('#login').then($e1 => {
+      cy.get('[ui-sref="personList"]').click()
+      cy.wait(
+        [
+          '@GetLoggedUser',
+          '@CheckUserPermission',
+          '@GetUserGroups',
+          '@GetLanguages',
+          '@GetLanguage',
+          '@GetListCombobox',
+          '@GetSkillCategoryList',
+          '@GetList',
+          '@GetTree',
+          '@GetLoggedUserId',
+          '@GetSkillKnowledgeList',
+        ],
+        { requestTimeout: 10000 }
+      )
+      cy.get('.mr-input-group').find('.mr-form-control').type($e1.val())
+      cy.get('.mr-input-group').find('.mr-btn').click()
+      cy.get('.mr-card-person.ng-scope').each(($e2, index, $list) => {
+        // cy.log($e2.find('.mr-card-face.mr-card-face--back .mr-card-body.text-center .mr-card-person-title').text())
+        if (
+          $e2
+            .find(
+              '.mr-card-face.mr-card-face--back .mr-card-body.text-center .mr-card-person-title'
+            )
+            .text() == $e1.val()
+        )
+          expect(
+            $e2
+              .find(
+                '.mr-card-face.mr-card-face--front .mr-card-body.text-center .mr-card-person-title'
+              )
+              .text()
+          ).to.eq(name)
+      })
+    })
   })
 })
