@@ -3,7 +3,7 @@
 describe('first test', function () {
   it('test1', function () {
     const userLogin = 'suporte.mereo'
-    const password = '2b785"iHj'
+    const password = 'hp98*G16n'
     var login = 'teste'
     const name = 'João Teste'
     cy.visit('https://automation.mereo.com/')
