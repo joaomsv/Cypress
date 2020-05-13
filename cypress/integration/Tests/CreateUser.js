@@ -10,13 +10,12 @@ describe('first test', function () {
     const loginPage = new LoginPage()
     cy.visit('https://automation.mereo.com/')
     cy.server()
-    cy.get('#languageSelect').click()
     cy.route('POST', '/').as('waitChangeCulture')
-    cy.get('[value="pt-BR"]').click()
+    loginPage.changeLanguage(1)
     cy.wait('@waitChangeCulture')
-    cy.get('#txtUser').type(userLogin)
-    cy.get('#txtPsw').type(password)
-    cy.get('[value="Login"]').click()
+    loginPage.getLoginField().type(userLogin)
+    loginPage.getPasswordField().type(password)
+    loginPage.getLoginBtn().click()
     cy.get('#SettingsMenu').click()
     cy.route('POST', 'api/services/app/systemConfig/GetCurrentCulture').as(
       'GetCurrentCulture'

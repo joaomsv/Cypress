@@ -12,7 +12,7 @@ class LoginPage {
     return cy.get('#languageSelect')
   }
   changeLanguage(language) {
-    this.getLanguageBtn.click()
+    this.getLanguageBtn().click()
     switch (language) {
       case 1:
         cy.get('[value="pt-BR"]').click()
@@ -43,6 +43,9 @@ class LoginPage {
         break
     }
   }
+  getLoginBtn() {
+    return cy.get('[value="Login"]')
+  }
 }
 
-export default LoginPage
+export default LoginPage;
