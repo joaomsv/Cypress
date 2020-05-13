@@ -18,7 +18,6 @@ describe('first test', function () {
     loginPage.getLoginField().type(userLogin)
     loginPage.getPasswordField().type(password)
     loginPage.getLoginBtn().click()
-    //cy.get('#SettingsMenu').click()
     cy.route('POST', 'api/services/app/systemConfig/GetCurrentCulture').as(
       'GetCurrentCulture'
     )
@@ -50,7 +49,6 @@ describe('first test', function () {
       'POST',
       'api/services/app/skillKnowledge/GetSkillKnowledgeList'
     ).as('GetSkillKnowledgeList')
-    //cy.get('#PeopleCentral').click()
     homePage.getPeopleCentral().click()
     cy.wait(
       [
