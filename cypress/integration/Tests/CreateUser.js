@@ -1,4 +1,5 @@
 /// <reference types="Cypress" />
+import LoginPage from '../pageObjects/LoginPage'
 
 describe('first test', function () {
   it('test1', function () {
@@ -6,6 +7,7 @@ describe('first test', function () {
     const password = 'hp98*G16n'
     var login = 'teste'
     const name = 'João Teste'
+    const loginPage = new LoginPage()
     cy.visit('https://automation.mereo.com/')
     cy.server()
     cy.get('#languageSelect').click()
