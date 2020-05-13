@@ -1,4 +1,5 @@
 {
   "theme": "dark",
-  "projectId": "trj7a9"
+  "projectId": "trj7a9",
+  "integrationFolder":"cypress/integration/Tests"
 }
