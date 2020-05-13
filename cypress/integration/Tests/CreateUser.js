@@ -1,5 +1,6 @@
 /// <reference types="Cypress" />
 import LoginPage from '../pageObjects/LoginPage'
+import HomePage from '../pageObjects/HomePage'
 
 describe('first test', function () {
   it('test1', function () {
@@ -8,6 +9,7 @@ describe('first test', function () {
     var login = 'teste'
     const name = 'João Teste'
     const loginPage = new LoginPage()
+    const homePage = new HomePage()
     cy.visit('https://automation.mereo.com/')
     cy.server()
     cy.route('POST', '/').as('waitChangeCulture')
@@ -16,7 +18,7 @@ describe('first test', function () {
     loginPage.getLoginField().type(userLogin)
     loginPage.getPasswordField().type(password)
     loginPage.getLoginBtn().click()
-    cy.get('#SettingsMenu').click()
+    //cy.get('#SettingsMenu').click()
     cy.route('POST', 'api/services/app/systemConfig/GetCurrentCulture').as(
       'GetCurrentCulture'
     )
@@ -48,7 +50,8 @@ describe('first test', function () {
       'POST',
       'api/services/app/skillKnowledge/GetSkillKnowledgeList'
     ).as('GetSkillKnowledgeList')
-    cy.get('#PeopleCentral').click()
+    //cy.get('#PeopleCentral').click()
+    homePage.getPeopleCentral().click()
     cy.wait(
       [
         '@GetCurrentCulture',
