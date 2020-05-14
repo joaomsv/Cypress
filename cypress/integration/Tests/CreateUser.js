@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 import LoginPage from '../pageObjects/LoginPage'
 import HomePage from '../pageObjects/HomePage'
+import Routes from '../APIs/Routes'
 
 describe('first test', function () {
   it('test1', function () {
@@ -10,6 +11,7 @@ describe('first test', function () {
     const name = 'João Teste'
     const loginPage = new LoginPage()
     const homePage = new HomePage()
+    const routes = new Routes()
     cy.visit('https://automation.mereo.com/')
     cy.server()
     cy.route('POST', '/').as('waitChangeCulture')
@@ -18,38 +20,22 @@ describe('first test', function () {
     loginPage.getLoginField().type(userLogin)
     loginPage.getPasswordField().type(password)
     loginPage.getLoginBtn().click()
-    cy.route('POST', 'api/services/app/systemConfig/GetCurrentCulture').as(
-      'GetCurrentCulture'
-    )
-    cy.route('POST', 'api/services/app/employee/GetLoggedUser').as(
-      'GetLoggedUser'
-    )
-    cy.route('POST', 'api/services/app/permission/CheckUserPermission').as(
-      'CheckUserPermission'
-    )
-    cy.route('POST', 'api/services/app/person/GetUserGroups').as(
-      'GetUserGroups'
-    )
-    cy.route('POST', 'api/services/app/person/GetLanguages').as('GetLanguages')
-    cy.route('POST', 'api/services/app/languageLevel/GetLanguage').as(
-      'GetLanguage'
-    )
-    cy.route('POST', 'api/services/app/languageLevel/GetListCombobox').as(
-      'GetListCombobox'
-    )
-    cy.route('POST', 'api/services/app/skillCategory/GetSkillCategoryList').as(
-      'GetSkillCategoryList'
-    )
-    cy.route('POST', 'api/services/app/person/GetList').as('GetList')
-    cy.route('POST', 'api/services/app/areaTree/GetTree').as('GetTree')
-    cy.route('POST', 'api/services/app/areaTree/GetLoggedUserId').as(
-      'GetLoggedUserId'
-    )
-    cy.route(
-      'POST',
-      'api/services/app/skillKnowledge/GetSkillKnowledgeList'
-    ).as('GetSkillKnowledgeList')
+    //Created listeners for all XHRs on the People Central page
+    routes.getPostGetCurrentCulture().as('GetCurrentCulture')
+    routes.getPostGetLoggedUser().as('GetLoggedUser')
+    routes.getPostCheckUserPermission().as('CheckUserPermission')
+    routes.getPostGetUserGroups().as('GetUserGroups')
+    routes.getPostGetLanguages().as('GetLanguages')
+    routes.getPostGetLanguage().as('GetLanguage')
+    routes.getPostGetListCombobox().as('GetListCombobox')
+    routes.getPostGetSkillCategoryList().as('GetSkillCategoryList')
+    routes.getPostGetList().as('GetList')
+    routes.getPostGetTree().as('GetTree')
+    routes.getPostGetLoggedUserId().as('GetLoggedUserId')
+    routes.getPostGetSkillKnowledgeList().as('GetSkillKnowledgeList')
+    //Access People Central
     homePage.getPeopleCentral().click()
+    //Wait for all APIs to finish
     cy.wait(
       [
         '@GetCurrentCulture',
@@ -68,9 +54,7 @@ describe('first test', function () {
       { requestTimeout: 10000 }
     )
     cy.get('.pull-right.mr-0').find('.mr-btn.mr-btn-primary').click()
-    cy.route('POST', 'api/services/app/person/ValidateLogin').as(
-      'ValidateLogin'
-    )
+    routes.getPostValidateLogin().as('ValidateLogin')
     cy.get('#login').type(login)
     cy.get('[name="fullName"]').type(name)
     cy.wait('@ValidateLogin').its('status').should('eq', 200)
