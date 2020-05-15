@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 import LoginPage from '../pageObjects/LoginPage'
 import HomePage from '../pageObjects/HomePage'
-import Routes from '../APIs/Routes'
+import Routes from '../apiObjects/Routes'
 
 describe('first test', function () {
   it('test1', function () {
