@@ -2,6 +2,7 @@
 import LoginPage from '../pageObjects/LoginPage'
 import HomePage from '../pageObjects/HomePage'
 import Routes from '../apiObjects/Routes'
+import PeopleCenter from '../pageObjects/PeopleCenterPage'
 
 describe('first test', function () {
   it('test1', function () {
@@ -11,6 +12,7 @@ describe('first test', function () {
     const name = 'João Teste'
     const loginPage = new LoginPage()
     const homePage = new HomePage()
+    const peopleCenter = new PeopleCenter()
     const routes = new Routes()
     cy.visit('https://automation.mereo.com/')
     cy.server()
@@ -53,7 +55,7 @@ describe('first test', function () {
       ],
       { requestTimeout: 10000 }
     )
-    cy.get('.pull-right.mr-0').find('.mr-btn.mr-btn-primary').click()
+    peopleCenter.getAddPersonBtn().click()
     routes.getPostValidateLogin().as('ValidateLogin')
     cy.get('#login').type(login)
     cy.get('[name="fullName"]').type(name)
