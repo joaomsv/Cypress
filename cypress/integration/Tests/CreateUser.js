@@ -5,8 +5,8 @@ import Routes from '../apiObjects/Routes'
 import PeopleCenterPage from '../pageObjects/PeopleCenterPage'
 import ProfilePage from '../pageObjects/ProfilePage'
 
-describe('first test', function () {
-  it('test1', function () {
+describe('People Central', function () {
+  it('Create User', function () {
     const userLogin = 'suporte.mereo'
     const password = 'hp98*G16n'
     var login = 'teste'
@@ -68,8 +68,8 @@ describe('first test', function () {
         if (!isValid) cy.LoginGenerator(0, login, name)
       })
     profile.getEmailField().type('asdas@asdas.com')
-    profile.getFullNameField().click()
-    cy.get('div.node.ng-scope').each(($el, index, $list) => {
+    profile.getAreaField().click()
+    profile.getAreaListField().each(($el, index, $list) => {
       var text = $el.text()
       if (text.includes('PRESIDÊNCIA')) {
         $el.find('span.node-selector').click()

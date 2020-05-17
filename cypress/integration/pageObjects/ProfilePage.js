@@ -13,6 +13,9 @@ class AddProfilePage {
   getAreaField() {
     return cy.get('.mr-tree-value')
   }
+  getAreaListField() {
+    return cy.get('div.node.ng-scope')
+  }
   getPermissionGroupsField() {
     return cy.get('#userGroupFormGroup select')
   }
