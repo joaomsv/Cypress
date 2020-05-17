@@ -2,7 +2,8 @@
 import LoginPage from '../pageObjects/LoginPage'
 import HomePage from '../pageObjects/HomePage'
 import Routes from '../apiObjects/Routes'
-import PeopleCenter from '../pageObjects/PeopleCenterPage'
+import PeopleCenterPage from '../pageObjects/PeopleCenterPage'
+import ProfilePage from '../pageObjects/ProfilePage'
 
 describe('first test', function () {
   it('test1', function () {
@@ -12,8 +13,9 @@ describe('first test', function () {
     const name = 'João Teste'
     const loginPage = new LoginPage()
     const homePage = new HomePage()
-    const peopleCenter = new PeopleCenter()
+    const peopleCenter = new PeopleCenterPage()
     const routes = new Routes()
+    const profile = new ProfilePage()
     cy.visit('https://automation.mereo.com/')
     cy.server()
     cy.route('POST', '/').as('waitChangeCulture')
@@ -57,27 +59,27 @@ describe('first test', function () {
     )
     peopleCenter.getAddPersonBtn().click()
     routes.getPostValidateLogin().as('ValidateLogin')
-    cy.get('#login').type(login)
-    cy.get('[name="fullName"]').type(name)
+    profile.getLoginField().type(login)
+    profile.getFullNameField().type(name)
     cy.wait('@ValidateLogin').its('status').should('eq', 200)
     cy.get('@ValidateLogin')
       .its('response.body.result.data.0.isValid')
       .then((isValid) => {
         if (!isValid) cy.LoginGenerator(0, login, name)
       })
-    cy.get('#emailInputGroup').type('asdas@asdas.com')
-    cy.get('.mr-tree-value').click()
+    profile.getEmailField().type('asdas@asdas.com')
+    profile.getFullNameField().click()
     cy.get('div.node.ng-scope').each(($el, index, $list) => {
       var text = $el.text()
       if (text.includes('PRESIDÊNCIA')) {
         $el.find('span.node-selector').click()
       }
     })
-    cy.get('#userGroupFormGroup select').select('number:1')
-    cy.get('.mr-btn.mr-btn-primary.pull-right.ng-binding').click()
-    cy.get('.toast-message').should('have.text', 'Registro inserido com sucesso.')
-    cy.get('#login').then(($e1) => {
-      cy.get('[ui-sref="personList"]').click()
+    profile.getPermissionGroupsField().select('number:1')
+    profile.getSaveBtn().click()
+    profile.getToast().should('have.text', 'Registro inserido com sucesso.')
+    profile.getLoginField().then(($e1) => {
+      profile.getBackArrowBtn().click()
       cy.wait(
         [
           '@GetLoggedUser',
@@ -94,9 +96,9 @@ describe('first test', function () {
         ],
         { requestTimeout: 10000 }
       )
-      cy.get('.mr-input-group').find('.mr-form-control').type($e1.val())
-      cy.get('.mr-input-group').find('.mr-btn').click()
-      cy.get('.mr-card-person.ng-scope').each(($e2, index, $list) => {
+      peopleCenter.getSearchField().type($e1.val())
+      peopleCenter.getSearchBtn().click()
+      peopleCenter.getProfileCards().each(($e2, index, $list) => {
         if (
           $e2.find('.mr-card-face.mr-card-face--back .mr-card-body.text-center .mr-card-person-title').text() ==
           $e1.val()

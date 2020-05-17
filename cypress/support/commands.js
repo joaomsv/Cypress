@@ -1,3 +1,5 @@
+import ProfilePage from '../integration/pageObjects/ProfilePage'
+const profile = new ProfilePage()
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -26,10 +28,10 @@
 
 Cypress.Commands.add('LoginGenerator', (counter, loginText, name) => {
   let login = loginText + counter
-  cy.get('#login').clear()
-  cy.get('[name="fullName"]').clear()
-  cy.get('#login').type(login)
-  cy.get('[name="fullName"]').type(name)
+  profile.getLoginField().clear()
+  profile.getFullNameField().clear()
+  profile.getLoginField().type(login)
+  profile.getFullNameField().type(name)
   cy.wait('@ValidateLogin', { requestTimeout: 10000 })
     .its('status')
     .should('eq', 200)
