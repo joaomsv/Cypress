@@ -60,7 +60,7 @@ describe('first test', function () {
     cy.wait('@ValidateLogin').its('status').should('eq', 200)
     cy.get('@ValidateLogin')
       .its('response.body.result.data.0.isValid')
-      .then(isValid => {
+      .then((isValid) => {
         if (!isValid) cy.LoginGenerator(0, login, name)
       })
     cy.get('#emailInputGroup').type('asdas@asdas.com')
@@ -73,11 +73,8 @@ describe('first test', function () {
     })
     cy.get('#userGroupFormGroup select').select('number:1')
     cy.get('.mr-btn.mr-btn-primary.pull-right.ng-binding').click()
-    cy.get('.toast-message').should(
-      'have.text',
-      'Registro inserido com sucesso.'
-    )
-    cy.get('#login').then($e1 => {
+    cy.get('.toast-message').should('have.text', 'Registro inserido com sucesso.')
+    cy.get('#login').then(($e1) => {
       cy.get('[ui-sref="personList"]').click()
       cy.wait(
         [
@@ -99,18 +96,11 @@ describe('first test', function () {
       cy.get('.mr-input-group').find('.mr-btn').click()
       cy.get('.mr-card-person.ng-scope').each(($e2, index, $list) => {
         if (
-          $e2
-            .find(
-              '.mr-card-face.mr-card-face--back .mr-card-body.text-center .mr-card-person-title'
-            )
-            .text() == $e1.val()
+          $e2.find('.mr-card-face.mr-card-face--back .mr-card-body.text-center .mr-card-person-title').text() ==
+          $e1.val()
         )
           expect(
-            $e2
-              .find(
-                '.mr-card-face.mr-card-face--front .mr-card-body.text-center .mr-card-person-title'
-              )
-              .text()
+            $e2.find('.mr-card-face.mr-card-face--front .mr-card-body.text-center .mr-card-person-title').text()
           ).to.eq(name)
       })
     })

@@ -3,6 +3,6 @@
     "singleQuote": true,
     "useTabs": false,
     "bracketSpacing": true,
-    "arrowParens": "avoid",
-    "trailingComma": "es5"
+    "trailingComma": "es5",
+    "printWidth": 120
 }

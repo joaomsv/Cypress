@@ -23,10 +23,7 @@ class Routes {
     return cy.route('POST', 'api/services/app/languageLevel/GetListCombobox')
   }
   getPostGetSkillCategoryList() {
-    return cy.route(
-      'POST',
-      'api/services/app/skillCategory/GetSkillCategoryList'
-    )
+    return cy.route('POST', 'api/services/app/skillCategory/GetSkillCategoryList')
   }
   getPostGetList() {
     return cy.route('POST', 'api/services/app/person/GetList')
@@ -38,10 +35,7 @@ class Routes {
     return cy.route('POST', 'api/services/app/areaTree/GetLoggedUserId')
   }
   getPostGetSkillKnowledgeList() {
-    return cy.route(
-      'POST',
-      'api/services/app/skillKnowledge/GetSkillKnowledgeList'
-    )
+    return cy.route('POST', 'api/services/app/skillKnowledge/GetSkillKnowledgeList')
   }
   getPostValidateLogin() {
     return cy.route('POST', 'api/services/app/person/ValidateLogin')
