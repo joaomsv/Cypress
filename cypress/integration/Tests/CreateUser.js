@@ -6,11 +6,17 @@ import PeopleCenterPage from '../pageObjects/PeopleCenterPage'
 import ProfilePage from '../pageObjects/ProfilePage'
 
 describe('People Central', function () {
+  before(function () {
+    cy.fixture('user').then(function (userdata) {
+      this.userdata = userdata
+    })
+  })
+
   it('Create User', function () {
-    const userLogin = 'suporte.mereo'
-    const password = 'hp98*G16n'
-    var login = 'teste'
-    const name = 'João Teste'
+    const username = this.userdata.username
+    const password = this.userdata.password
+    var login = this.userdata.login
+    const fullName = this.userdata.fullName
     const loginPage = new LoginPage()
     const homePage = new HomePage()
     const peopleCenter = new PeopleCenterPage()
@@ -21,7 +27,7 @@ describe('People Central', function () {
     cy.route('POST', '/').as('waitChangeCulture')
     loginPage.changeLanguage(1)
     cy.wait('@waitChangeCulture')
-    loginPage.getLoginField().type(userLogin)
+    loginPage.getLoginField().type(username)
     loginPage.getPasswordField().type(password)
     loginPage.getLoginBtn().click()
     //Created listeners for all XHRs on the People Central page
@@ -60,12 +66,12 @@ describe('People Central', function () {
     peopleCenter.getAddPersonBtn().click()
     routes.getPostValidateLogin().as('ValidateLogin')
     profile.getLoginField().type(login)
-    profile.getFullNameField().type(name)
+    profile.getFullNameField().type(fullName)
     cy.wait('@ValidateLogin').its('status').should('eq', 200)
     cy.get('@ValidateLogin')
       .its('response.body.result.data.0.isValid')
       .then((isValid) => {
-        if (!isValid) cy.LoginGenerator(0, login, name)
+        if (!isValid) cy.LoginGenerator(0, login, fullName)
       })
     profile.getEmailField().type('asdas@asdas.com')
     profile.getAreaField().click()
@@ -105,7 +111,7 @@ describe('People Central', function () {
         )
           expect(
             $e2.find('.mr-card-face.mr-card-face--front .mr-card-body.text-center .mr-card-person-title').text()
-          ).to.eq(name)
+          ).to.eq(fullName)
       })
     })
   })
