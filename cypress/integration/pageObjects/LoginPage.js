@@ -46,6 +46,14 @@ class LoginPage {
   getLoginBtn() {
     return cy.get('[value="Login"]')
   }
+  Login(username,password,language) {
+    cy.route('POST', '/').as('waitChangeCulture')
+    this.changeLanguage(language)
+    cy.wait('@waitChangeCulture')
+    this.getLoginField().type(username)
+    this.getPasswordField().type(password)
+    this.getLoginBtn().click()
+  }
 }
 
 export default LoginPage
