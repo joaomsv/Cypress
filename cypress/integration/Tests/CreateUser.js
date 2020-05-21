@@ -22,9 +22,23 @@ describe('People Central', function () {
     const peopleCenter = new PeopleCenterPage()
     const routes = new Routes()
     const profile = new ProfilePage()
+    var xhr = [
+      '@GetCurrentCulture',
+      '@GetLoggedUser',
+      '@CheckUserPermission',
+      '@GetUserGroups',
+      '@GetLanguages',
+      '@GetLanguage',
+      '@GetListCombobox',
+      '@GetSkillCategoryList',
+      '@GetList',
+      '@GetTree',
+      '@GetLoggedUserId',
+      '@GetSkillKnowledgeList',
+    ]
     cy.visit('https://automation.mereo.com/', { timeout: 120000 })
     cy.server()
-    loginPage.Login(username,password,1)
+    loginPage.Login(username, password, 1)
     //Created listeners for all XHRs on the People Central page
     routes.getPostGetCurrentCulture().as('GetCurrentCulture')
     routes.getPostGetLoggedUser().as('GetLoggedUser')
@@ -41,23 +55,7 @@ describe('People Central', function () {
     //Access People Central
     homePage.getPeopleCentral().click()
     //Wait for all APIs to finish
-    cy.wait(
-      [
-        '@GetCurrentCulture',
-        '@GetLoggedUser',
-        '@CheckUserPermission',
-        '@GetUserGroups',
-        '@GetLanguages',
-        '@GetLanguage',
-        '@GetListCombobox',
-        '@GetSkillCategoryList',
-        '@GetList',
-        '@GetTree',
-        '@GetLoggedUserId',
-        '@GetSkillKnowledgeList',
-      ],
-      { requestTimeout: 10000 }
-    )
+    cy.wait(xhr, { requestTimeout: 10000 })
     peopleCenter.getAddPersonBtn().click()
     routes.getPostValidateLogin().as('ValidateLogin')
     profile.getLoginField().type(login)
@@ -81,22 +79,8 @@ describe('People Central', function () {
     profile.getToast().should('have.text', 'Registro inserido com sucesso.')
     profile.getLoginField().then(($e1) => {
       profile.getBackArrowBtn().click()
-      cy.wait(
-        [
-          '@GetLoggedUser',
-          '@CheckUserPermission',
-          '@GetUserGroups',
-          '@GetLanguages',
-          '@GetLanguage',
-          '@GetListCombobox',
-          '@GetSkillCategoryList',
-          '@GetList',
-          '@GetTree',
-          '@GetLoggedUserId',
-          '@GetSkillKnowledgeList',
-        ],
-        { requestTimeout: 10000 }
-      )
+      xhr.shift()
+      cy.wait(xhr, { requestTimeout: 10000 })
       peopleCenter.getSearchField().type($e1.val())
       peopleCenter.getSearchBtn().click()
       peopleCenter.getProfileCards().each(($e2, index, $list) => {
