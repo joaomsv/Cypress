@@ -10,6 +10,7 @@ describe('People Central', function () {
     cy.fixture('user').then(function (userdata) {
       this.userdata = userdata
     })
+    cy.server()
   })
 
   it('Create User', function () {
@@ -37,7 +38,6 @@ describe('People Central', function () {
       '@GetSkillKnowledgeList',
     ]
     cy.visit('https://automation.mereo.com/', { timeout: 120000 })
-    cy.server()
     loginPage.Login(username, password, 1)
     //Created listeners for all XHRs on the People Central page
     routes.getPostGetCurrentCulture().as('GetCurrentCulture')
