@@ -6,16 +6,18 @@ import PeopleCenterPage from '../pageObjects/PeopleCenterPage'
 import ProfilePage from '../pageObjects/ProfilePage'
 
 describe('People Central', function () {
+  const loginPage = new LoginPage()
   before(function () {
     cy.fixture('user').then(function (userdata) {
       this.userdata = userdata
+      cy.server()
+      cy.visit('https://automation.mereo.com/', { timeout: 120000 })
+      loginPage.Login(this.userdata.username, this.userdata.password, 1)
     })
-    cy.server()
-    cy.visit('https://automation.mereo.com/', { timeout: 120000 })
   })
 
   it('Create User', function () {
-    const loginPage = new LoginPage()
+    // const loginPage = new LoginPage()
     const homePage = new HomePage()
     const peopleCenter = new PeopleCenterPage()
     const routes = new Routes()
@@ -34,7 +36,7 @@ describe('People Central', function () {
       '@GetLoggedUserId',
       '@GetSkillKnowledgeList'
     ]
-    loginPage.Login(this.userdata.username, this.userdata.password, 1)
+    // loginPage.Login(this.userdata.username, this.userdata.password, 1)
     //Created listeners for all XHRs on the People Central page
     routes.getPostGetCurrentCulture().as('GetCurrentCulture')
     routes.getPostGetLoggedUser().as('GetLoggedUser')
