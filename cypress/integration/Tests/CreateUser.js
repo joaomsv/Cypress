@@ -17,7 +17,6 @@ describe('People Central', function () {
   })
 
   it('Create User', function () {
-    // const loginPage = new LoginPage()
     const homePage = new HomePage()
     const peopleCenter = new PeopleCenterPage()
     const routes = new Routes()
@@ -36,7 +35,6 @@ describe('People Central', function () {
       '@GetLoggedUserId',
       '@GetSkillKnowledgeList'
     ]
-    // loginPage.Login(this.userdata.username, this.userdata.password, 1)
     //Created listeners for all XHRs on the People Central page
     routes.getPostGetCurrentCulture().as('GetCurrentCulture')
     routes.getPostGetLoggedUser().as('GetLoggedUser')
