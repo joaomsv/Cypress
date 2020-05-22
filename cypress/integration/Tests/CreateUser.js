@@ -14,10 +14,6 @@ describe('People Central', function () {
   })
 
   it('Create User', function () {
-    const username = this.userdata.username
-    const password = this.userdata.password
-    var login = this.userdata.login
-    const fullName = this.userdata.fullName
     const loginPage = new LoginPage()
     const homePage = new HomePage()
     const peopleCenter = new PeopleCenterPage()
@@ -38,7 +34,7 @@ describe('People Central', function () {
       '@GetSkillKnowledgeList'
     ]
     cy.visit('https://automation.mereo.com/', { timeout: 120000 })
-    loginPage.Login(username, password, 1)
+    loginPage.Login(this.userdata.username, this.userdata.password, 1)
     //Created listeners for all XHRs on the People Central page
     routes.getPostGetCurrentCulture().as('GetCurrentCulture')
     routes.getPostGetLoggedUser().as('GetLoggedUser')
@@ -60,13 +56,13 @@ describe('People Central', function () {
     routes.getPostValidateLogin().as('ValidateLogin')
     routes.getPostGetPreSaveConditions().as('GetPreSaveConditions')
     routes.getPostSaveEmployeeSystemInfo().as('SaveEmployeeSystemInfo')
-    profile.getLoginField().type(login)
-    profile.getFullNameField().type(fullName)
+    profile.getLoginField().type(this.userdata.login)
+    profile.getFullNameField().type(this.userdata.fullName)
     cy.wait('@ValidateLogin').its('status').should('eq', 200)
     cy.get('@ValidateLogin')
       .its('response.body.result.data.0.isValid')
       .then((isValid) => {
-        if (!isValid) cy.LoginGenerator(0, login, fullName)
+        if (!isValid) cy.LoginGenerator(0, this.userdata.login, this.userdata.fullName)
       })
     profile.getEmailField().type('asdas@asdas.com')
     profile.getAreaField().click()
