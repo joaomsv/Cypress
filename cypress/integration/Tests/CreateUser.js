@@ -35,7 +35,7 @@ describe('People Central', function () {
       '@GetList',
       '@GetTree',
       '@GetLoggedUserId',
-      '@GetSkillKnowledgeList',
+      '@GetSkillKnowledgeList'
     ]
     cy.visit('https://automation.mereo.com/', { timeout: 120000 })
     loginPage.Login(username, password, 1)
