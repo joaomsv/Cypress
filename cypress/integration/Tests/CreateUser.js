@@ -58,6 +58,8 @@ describe('People Central', function () {
     cy.wait(xhrPeopleCenter, { requestTimeout: 10000 })
     peopleCenter.getAddPersonBtn().click()
     routes.getPostValidateLogin().as('ValidateLogin')
+    routes.getPostGetPreSaveConditions().as('GetPreSaveConditions')
+    routes.getPostSaveEmployeeSystemInfo().as('SaveEmployeeSystemInfo')
     profile.getLoginField().type(login)
     profile.getFullNameField().type(fullName)
     cy.wait('@ValidateLogin').its('status').should('eq', 200)
@@ -76,6 +78,7 @@ describe('People Central', function () {
     })
     profile.getPermissionGroupsField().select('number:1')
     profile.getSaveBtn().click()
+    cy.wait(['@GetPreSaveConditions', '@SaveEmployeeSystemInfo'])
     profile.getToast().should('have.text', 'Registro inserido com sucesso.')
     profile.getLoginField().then(($e1) => {
       profile.getBackArrowBtn().click()

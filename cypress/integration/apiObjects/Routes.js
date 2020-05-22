@@ -40,6 +40,12 @@ class Routes {
   getPostValidateLogin() {
     return cy.route('POST', 'api/services/app/person/ValidateLogin')
   }
+  getPostGetPreSaveConditions(){
+    return cy.route('POST','api/services/app/person/GetPreSaveConditions')
+  }
+  getPostSaveEmployeeSystemInfo(){
+    return cy.route('POST','api/services/app/person/SaveEmployeeSystemInfo')
+  }
 }
 
 export default Routes
