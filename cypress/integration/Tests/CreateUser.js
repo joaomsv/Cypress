@@ -23,7 +23,7 @@ describe('People Central', function () {
     const peopleCenter = new PeopleCenterPage()
     const routes = new Routes()
     const profile = new ProfilePage()
-    var xhr = [
+    var xhrPeopleCenter = [
       '@GetCurrentCulture',
       '@GetLoggedUser',
       '@CheckUserPermission',
@@ -55,7 +55,7 @@ describe('People Central', function () {
     //Access People Central
     homePage.getPeopleCentral().click()
     //Wait for all APIs to finish
-    cy.wait(xhr, { requestTimeout: 10000 })
+    cy.wait(xhrPeopleCenter, { requestTimeout: 10000 })
     peopleCenter.getAddPersonBtn().click()
     routes.getPostValidateLogin().as('ValidateLogin')
     profile.getLoginField().type(login)
@@ -79,8 +79,8 @@ describe('People Central', function () {
     profile.getToast().should('have.text', 'Registro inserido com sucesso.')
     profile.getLoginField().then(($e1) => {
       profile.getBackArrowBtn().click()
-      xhr.shift()
-      cy.wait(xhr, { requestTimeout: 10000 })
+      xhrPeopleCenter.shift()
+      cy.wait(xhrPeopleCenter, { requestTimeout: 10000 })
       peopleCenter.getSearchField().type($e1.val())
       peopleCenter.getSearchBtn().click()
       peopleCenter.getProfileCards().each(($e2, index, $list) => {
