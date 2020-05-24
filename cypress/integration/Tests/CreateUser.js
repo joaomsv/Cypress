@@ -66,12 +66,8 @@ describe('People Central', function () {
       })
     profile.getEmailField().type('asdas@asdas.com')
     profile.getAreaField().click()
-    profile.getAreaListField().each(($el, index, $list) => {
-      var text = $el.text()
-      if (text.includes('PRESIDÊNCIA')) {
-        $el.find('span.node-selector').click()
-      }
-    })
+    profile.getAreaSearchField().type('PRESIDÊNCIA')
+    profile.getAreaSearchResultsField().first().click()
     profile.getPermissionGroupsField().select('number:1')
     profile.getSaveBtn().click()
     cy.wait(['@GetPreSaveConditions', '@SaveEmployeeSystemInfo'])

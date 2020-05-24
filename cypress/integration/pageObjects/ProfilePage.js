@@ -1,6 +1,8 @@
 /// <reference types="Cypress" />
 
-class AddProfilePage {
+import PeopleCenterPage from "./PeopleCenterPage"
+
+class AddProfilePage extends PeopleCenterPage {
   getLoginField() {
     return cy.get('#login')
   }
@@ -15,6 +17,12 @@ class AddProfilePage {
   }
   getAreaListField() {
     return cy.get('div.node.ng-scope')
+  }
+  getAreaSearchField() {
+    return cy.get('#selectAreaList')
+  }
+  getAreaSearchResultsField() {
+    return cy.get('.ui-select-choices-row')
   }
   getPermissionGroupsField() {
     return cy.get('#userGroupFormGroup select')
