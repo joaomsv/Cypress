@@ -36,6 +36,11 @@ class AddProfilePage extends PeopleCenterPage {
   getBackArrowBtn() {
     return cy.get('[ui-sref="personList"]')
   }
+  selectArea(area){
+    this.getAreaField().click()
+    this.getAreaSearchField().type(area)
+    this.getAreaSearchResultsField().first().click()
+  }
 }
 
 export default AddProfilePage
