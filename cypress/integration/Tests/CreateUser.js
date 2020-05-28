@@ -21,6 +21,7 @@ describe('People Central', function () {
     const peopleCenter = new PeopleCenterPage()
     const routes = new Routes()
     const profile = new ProfilePage()
+    var area = 'PRESIDÊNCIA'
     var xhrPeopleCenter = [
       '@GetCurrentCulture',
       '@GetLoggedUser',
@@ -66,8 +67,13 @@ describe('People Central', function () {
       })
     profile.getRegistrationField().type('banana')
     profile.getEmailField().type('fake@mereo.com')
-    profile.selectArea('PRESIDÊNCIA')
+    profile.selectArea(area)
     profile.getPermissionGroupsField().select('number:1')
+    profile.getAddAreaResponsibilityBtn().click()
+    profile.getAddAreaResponsibilitySearchField().click()
+    profile.getAddAreaResponsibilitySearchField().type(area)
+    profile.getAddAreaResponsibilitySearchResults().first().click()
+    profile.getAddAreaResponsibilityModalAddBtn().click()
     profile.getSaveBtn().click()
     cy.wait(['@GetPreSaveConditions', '@SaveEmployeeSystemInfo'])
     profile.getToast().should('have.text', 'Registro inserido com sucesso.')
