@@ -83,7 +83,7 @@ describe('People Central', function () {
         )
           expect(
             $e2.find('.mr-card-face.mr-card-face--front .mr-card-body.text-center .mr-card-person-title').text()
-          ).to.eq(fullName)
+          ).to.eq(this.userdata.fullName)
       })
     })
   })
