@@ -9,6 +9,9 @@ class AddProfilePage extends PeopleCenterPage {
   getFullNameField() {
     return cy.get('[name="fullName"]')
   }
+  getRegistrationField() {
+    return cy.get('.col-md-5.col-md-offset-1').find('.mr-form-control.ng-pristine.ng-untouched.ng-valid.ng-valid-maxlength')
+  }
   getEmailField() {
     return cy.get('#emailInputGroup')
   }
