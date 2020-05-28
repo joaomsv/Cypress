@@ -46,6 +46,36 @@ class Routes {
   getPostSaveEmployeeSystemInfo(){
     return cy.route('POST','api/services/app/person/SaveEmployeeSystemInfo')
   }
+  getPostGetLoggedManagementCycle(){
+    return cy.route('POST','api/services/app/managementCycle/GetLoggedManagementCycle')
+  }
+  getPostGetLoggedUserModulesWithAccess(){
+    return cy.route('POST','api/services/app/modules/GetLoggedUserModulesWithAccess')
+  }
+  getPostGetPerformanceInfo(){
+    return cy.route('POST','api/services/app/initialDashboard/GetPerformanceInfo')
+  }
+  getPostGetLoggedUserActions(){
+    return cy.route('POST','api/services/app/action/GetLoggedUserActions')
+  }
+  getPostGetEvaluationFormDashboardSummary(){
+    return cy.route('POST','api/services/app/evaluator/GetEvaluationFormDashboardSummary*')
+  }
+  getPostGetWaitingApprovalCount(){
+    return cy.route('POST','api/services/app/idpDashboard/GetWaitingApprovalCount*')
+  }
+  getPostGetMyActions(){
+    return cy.route('POST','api/services/app/idpDashboard/GetMyActions')
+  }
+  getPosthasVigentResultReleased(){
+    return cy.route('POST','api/services/app/evaluationForm/hasVigentResultReleased')
+  }
+  getPostGetLoggedUserProfileCompletionRate(){
+    return cy.route('POST','api/services/app/initialDashboard/GetLoggedUserProfileCompletionRate')
+  }
+  getPostGetTeamSystemAccess(){
+    return cy.route('POST','api/services/app/initialDashboard/GetTeamSystemAccess')
+  }
 }
 
 export default Routes

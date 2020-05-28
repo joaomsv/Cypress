@@ -35,7 +35,7 @@ describe('People Central', function () {
       '@GetLoggedUserId',
       '@GetSkillKnowledgeList'
     ]
-    //Created listeners for all XHRs on the People Central page
+    //Created listeners for all XHRs
     routes.getPostGetCurrentCulture().as('GetCurrentCulture')
     routes.getPostGetLoggedUser().as('GetLoggedUser')
     routes.getPostCheckUserPermission().as('CheckUserPermission')
@@ -50,7 +50,7 @@ describe('People Central', function () {
     routes.getPostGetSkillKnowledgeList().as('GetSkillKnowledgeList')
     //Access People Central
     homePage.getPeopleCentral().click()
-    //Wait for all APIs to finish
+    //Wait for all People Center APIs to finish
     cy.wait(xhrPeopleCenter, { requestTimeout: 10000 })
     peopleCenter.getAddPersonBtn().click()
     routes.getPostValidateLogin().as('ValidateLogin')

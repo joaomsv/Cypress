@@ -6,7 +6,7 @@ class HomePage {
   }
   getPeopleCentral() {
     this.getSettingsMenu().click()
-    return cy.get('#PeopleCentral')
+    return cy.get('#PeopleCenter')
   }
 }
 
