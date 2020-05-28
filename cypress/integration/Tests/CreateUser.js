@@ -64,7 +64,7 @@ describe('People Central', function () {
       .then((isValid) => {
         if (!isValid) cy.LoginGenerator(0, this.userdata.login, this.userdata.fullName)
       })
-    profile.getEmailField().type('asdas@asdas.com')
+    profile.getEmailField().type('fake@mereo.com')
     profile.selectArea('PRESIDÊNCIA')
     profile.getPermissionGroupsField().select('number:1')
     profile.getSaveBtn().click()
