@@ -73,6 +73,11 @@ describe('People Central', function () {
     profile.getAddAreaResponsibilitySearchField().type(this.userdata.area)
     profile.getAddAreaResponsibilitySearchResults().first().click()
     profile.getAddAreaResponsibilityModalAddBtn().click()
+    cy.get('tr.ng-scope')
+      .find('td.ng-binding')
+      .each(($el, index, $list) => {
+        expect($el.text()).to.include(this.userdata.area)
+      })
     profile.getSaveBtn().click()
     cy.wait(['@GetPreSaveConditions', '@SaveEmployeeSystemInfo'])
     profile.getToast().should('have.text', 'Registro inserido com sucesso.')
