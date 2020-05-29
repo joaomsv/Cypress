@@ -1,9 +1,9 @@
 /// <reference types="Cypress" />
-import LoginPage from '../../pageObjects/Pages/LoginPage'
+import LoginPage from '../../pageObjects/Pages/LoginPage/LoginPage'
 import HomePage from '../../pageObjects/BasePage'
 import Routes from '../../pageObjects/APIs/Routes'
-import PeopleCenterPage from '../../pageObjects/Pages/PeopleCenterPage'
-import ProfilePage from '../../pageObjects/Pages/ProfilePage'
+import PeopleCenterPage from '../../pageObjects/Pages/PeopleCenter/PeopleCenterPage'
+import ProfilePage from '../../pageObjects/Pages/PeopleCenter/ProfilePage'
 
 describe('People Central', function () {
   const loginPage = new LoginPage()
