@@ -22,7 +22,7 @@ class AddProfilePage extends PeopleCenterPage {
     return cy.get('div.node.ng-scope')
   }
   getAreaSearchField() {
-    return cy.get('#selectAreaList')
+    return cy.get('.ui-select-match')
   }
   getAreaSearchResultsField() {
     return cy.get('.ui-select-choices-row')
