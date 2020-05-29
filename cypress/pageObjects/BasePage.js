@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-class HomePage {
+class BasePage {
   getSettingsMenu() {
     return cy.get('#SettingsMenu')
   }
@@ -10,4 +10,4 @@ class HomePage {
   }
 }
 
-export default HomePage
+export default BasePage
