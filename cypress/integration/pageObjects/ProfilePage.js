@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-import PeopleCenterPage from "./PeopleCenterPage"
+import PeopleCenterPage from './PeopleCenterPage'
 
 class AddProfilePage extends PeopleCenterPage {
   getLoginField() {
@@ -10,7 +10,9 @@ class AddProfilePage extends PeopleCenterPage {
     return cy.get('[name="fullName"]')
   }
   getRegistrationField() {
-    return cy.get('.col-md-5.col-md-offset-1').find('.mr-form-control.ng-pristine.ng-untouched.ng-valid.ng-valid-maxlength')
+    return cy
+      .get('.col-md-5.col-md-offset-1')
+      .find('.mr-form-control.ng-pristine.ng-untouched.ng-valid.ng-valid-maxlength')
   }
   getEmailField() {
     return cy.get('#emailInputGroup')
@@ -42,7 +44,7 @@ class AddProfilePage extends PeopleCenterPage {
   getAddAreaResponsibilityModalAddBtn() {
     return cy.get('.modal-footer').find('.mr-btn.mr-btn-primary.ng-binding')
   }
-  getAreaResponsibilityListDesc(){
+  getAreaResponsibilityListDesc() {
     return cy.get('tr.ng-scope').find('td.ng-binding')
   }
   getSaveBtn() {
@@ -54,10 +56,20 @@ class AddProfilePage extends PeopleCenterPage {
   getBackArrowBtn() {
     return cy.get('[ui-sref="personList"]')
   }
-  selectArea(area){
+  selectArea(area) {
     this.getAreaField().click()
     this.getAreaSearchField().type(area)
     this.getAreaSearchResultsField().first().click()
+  }
+  addAreaResponsability(area) {
+    this.getAreaResponsibilityAddBtn().click()
+    this.getAreaResponsibilityModalSearchField().click()
+    this.getAreaResponsibilityModalSearchField().type(area)
+    this.getAreaResponsibilityModalSearchResults().first().click()
+    this.getAddAreaResponsibilityModalAddBtn().click()
+    this.getAreaResponsibilityListDesc().each(($el, index, $list) => {
+      expect($el.text()).to.include(area)
+    })
   }
 }
 
