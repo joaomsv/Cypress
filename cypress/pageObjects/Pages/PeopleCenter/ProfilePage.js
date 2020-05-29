@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 
 import PeopleCenterPage from './PeopleCenterPage'
+import Routes from '../../APIs/Routes'
 
 class ProfilePage extends PeopleCenterPage {
   getLoginField() {
@@ -70,6 +71,29 @@ class ProfilePage extends PeopleCenterPage {
     this.getAreaResponsibilityListDesc().each(($el, index, $list) => {
       expect($el.text()).to.include(area)
     })
+  }
+  addUser(login, fullName, registration, email, area, perGroup) {
+    let routes = new Routes();
+    this.getAddPersonBtn().click()
+    routes.getPostValidateLogin().as('ValidateLogin')
+    routes.getPostGetPreSaveConditions().as('GetPreSaveConditions')
+    routes.getPostSaveEmployeeSystemInfo().as('SaveEmployeeSystemInfo')
+    this.getLoginField().type(login)
+    this.getFullNameField().type(fullName)
+    cy.wait('@ValidateLogin').its('status').should('eq', 200)
+    cy.get('@ValidateLogin')
+      .its('response.body.result.data.0.isValid')
+      .then((isValid) => {
+        if (!isValid) cy.LoginGenerator(0, login, fullName)
+      })
+    this.getRegistrationField().type(registration)
+    this.getEmailField().type(email)
+    this.selectArea(area)
+    this.getPermissionGroupsField().select(perGroup)
+    this.addAreaResponsability(area)
+    this.getSaveBtn().click()
+    cy.wait(['@GetPreSaveConditions', '@SaveEmployeeSystemInfo'])
+    this.getToast().should('have.text', 'Registro inserido com sucesso.')
   }
 }
 
