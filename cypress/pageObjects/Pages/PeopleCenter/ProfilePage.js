@@ -2,7 +2,7 @@
 
 import PeopleCenterPage from './PeopleCenterPage'
 
-class AddProfilePage extends PeopleCenterPage {
+class ProfilePage extends PeopleCenterPage {
   getLoginField() {
     return cy.get('#login')
   }
@@ -73,4 +73,4 @@ class AddProfilePage extends PeopleCenterPage {
   }
 }
 
-export default AddProfilePage
+export default ProfilePage
