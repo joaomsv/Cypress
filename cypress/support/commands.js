@@ -1,4 +1,4 @@
-import ProfilePage from '../integration/pageObjects/ProfilePage'
+import ProfilePage from '../pageObjects/Pages/PeopleCenter/ProfilePage'
 const profile = new ProfilePage()
 // ***********************************************
 // This example commands.js shows you how to
