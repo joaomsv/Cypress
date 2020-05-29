@@ -1,6 +1,8 @@
 /// <reference types="Cypress" />
 
-class PeopleCenterPage {
+import BasePage from "../../BasePage"
+
+class PeopleCenterPage extends BasePage{
   getAddPersonBtn() {
     return cy.get('.pull-right.mr-0').find('.mr-btn.mr-btn-primary')
   }
