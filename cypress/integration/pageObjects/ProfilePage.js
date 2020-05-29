@@ -30,17 +30,20 @@ class AddProfilePage extends PeopleCenterPage {
   getPermissionGroupsField() {
     return cy.get('#userGroupFormGroup select')
   }
-  getAddAreaResponsibilityBtn() {
+  getAreaResponsibilityAddBtn() {
     return cy.get('.col-md-12.mb-3.pr-0').find('.mr-btn.mr-btn-primary')
   }
-  getAddAreaResponsibilitySearchField() {
+  getAreaResponsibilityModalSearchField() {
     return cy.get('.mr-input-group.ui-select-container.ui-select-bootstrap.dropdown.ng-valid.ng-valid-required')
   }
-  getAddAreaResponsibilitySearchResults() {
+  getAreaResponsibilityModalSearchResults() {
     return cy.get('.ui-select-choices-row-inner')
   }
   getAddAreaResponsibilityModalAddBtn() {
     return cy.get('.modal-footer').find('.mr-btn.mr-btn-primary.ng-binding')
+  }
+  getAreaResponsibilityListDesc(){
+    return cy.get('tr.ng-scope').find('td.ng-binding')
   }
   getSaveBtn() {
     return cy.get('.mr-btn.mr-btn-primary.pull-right.ng-binding')
