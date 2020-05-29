@@ -1,6 +1,5 @@
 /// <reference types="Cypress" />
 import LoginPage from '../../pageObjects/Pages/LoginPage/LoginPage'
-import HomePage from '../../pageObjects/BasePage'
 import Routes from '../../pageObjects/APIs/Routes'
 import PeopleCenterPage from '../../pageObjects/Pages/PeopleCenter/PeopleCenterPage'
 import ProfilePage from '../../pageObjects/Pages/PeopleCenter/ProfilePage'
@@ -17,7 +16,6 @@ describe('People Central', function () {
   })
 
   it('Create User', function () {
-    const homePage = new HomePage()
     const peopleCenter = new PeopleCenterPage()
     const routes = new Routes()
     const profile = new ProfilePage()
@@ -49,7 +47,7 @@ describe('People Central', function () {
     routes.getPostGetLoggedUserId().as('GetLoggedUserId')
     routes.getPostGetSkillKnowledgeList().as('GetSkillKnowledgeList')
     //Access People Central
-    homePage.getPeopleCentral().click()
+    peopleCenter.getPeopleCentral().click()
     //Wait for all People Center APIs to finish
     cy.wait(xhrPeopleCenter, { requestTimeout: 10000 })
     peopleCenter.getAddPersonBtn().click()
