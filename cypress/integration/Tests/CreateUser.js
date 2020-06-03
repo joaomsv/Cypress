@@ -50,11 +50,18 @@ describe('People Central', function () {
     peopleCenter.getPeopleCentral().click()
     //Wait for all People Center APIs to finish
     cy.wait(xhrPeopleCenter, { requestTimeout: 10000 })
-    profile.addUser(this.userdata.login,this.userdata.fullName,'matricula','fake@mereo.com',this.userdata.area,'number:1')
+    profile.addUser(
+      this.userdata.login,
+      this.userdata.fullName,
+      'matricula',
+      'fake@mereo.com',
+      this.userdata.area,
+      'number:1'
+    )
     profile.getLoginField().then(($e1) => {
       profile.getBackArrowBtn().click()
       xhrPeopleCenter.shift()
-      cy.wait(xhrPeopleCenter, { requestTimeout: 10000 , responseTimeout: 60000})
+      cy.wait(xhrPeopleCenter, { requestTimeout: 10000, responseTimeout: 60000 })
       peopleCenter.getSearchField().type($e1.val())
       peopleCenter.getSearchBtn().click()
       peopleCenter.getProfileCards().each(($e2, index, $list) => {
