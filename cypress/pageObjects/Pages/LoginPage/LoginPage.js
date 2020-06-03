@@ -48,11 +48,13 @@ class LoginPage {
   }
   Login(username,password,language) {
     cy.route('POST', '/').as('waitChangeCulture')
+    cy.route('POST', '/Login.aspx').as('waitForLogin')
     this.changeLanguage(language)
     cy.wait('@waitChangeCulture')
     this.getLoginField().type(username)
     this.getPasswordField().type(password)
     this.getLoginBtn().click()
+    cy.wait('@waitForLogin')
   }
 }
 
