@@ -61,7 +61,7 @@ describe('People Central', function () {
     profile.getLoginField().then(($e1) => {
       profile.getBackArrowBtn().click()
       xhrPeopleCenter.shift()
-      cy.wait(xhrPeopleCenter, { requestTimeout: 10000, responseTimeout: 60000 })
+      cy.wait(xhrPeopleCenter, { requestTimeout: 10000 })
       peopleCenter.getSearchField().type($e1.val())
       peopleCenter.getSearchBtn().click()
       peopleCenter.getProfileCards().each(($e2, index, $list) => {
