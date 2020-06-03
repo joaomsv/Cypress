@@ -1,80 +1,82 @@
 /// <reference types="Cypress" />
 
+const baseRoute = baseRoute + ''
+
 class Routes {
   getPostGetCurrentCulture() {
-    return cy.route('POST', 'api/services/app/systemConfig/GetCurrentCulture')
+    return cy.route('POST', baseRoute + '/systemConfig/GetCurrentCulture')
   }
   getPostGetLoggedUser() {
-    return cy.route('POST', 'api/services/app/employee/GetLoggedUser')
+    return cy.route('POST', baseRoute + '/employee/GetLoggedUser')
   }
   getPostCheckUserPermission() {
-    return cy.route('POST', 'api/services/app/permission/CheckUserPermission')
+    return cy.route('POST', baseRoute + '/permission/CheckUserPermission')
   }
   getPostGetUserGroups() {
-    return cy.route('POST', 'api/services/app/person/GetUserGroups')
+    return cy.route('POST', baseRoute + '/person/GetUserGroups')
   }
   getPostGetLanguages() {
-    return cy.route('POST', 'api/services/app/person/GetLanguages')
+    return cy.route('POST', baseRoute + '/person/GetLanguages')
   }
   getPostGetLanguage() {
-    return cy.route('POST', 'api/services/app/languageLevel/GetLanguage')
+    return cy.route('POST', baseRoute + '/languageLevel/GetLanguage')
   }
   getPostGetListCombobox() {
-    return cy.route('POST', 'api/services/app/languageLevel/GetListCombobox')
+    return cy.route('POST', baseRoute + '/languageLevel/GetListCombobox')
   }
   getPostGetSkillCategoryList() {
-    return cy.route('POST', 'api/services/app/skillCategory/GetSkillCategoryList')
+    return cy.route('POST', baseRoute + '/skillCategory/GetSkillCategoryList')
   }
   getPostGetList() {
-    return cy.route('POST', 'api/services/app/person/GetList')
+    return cy.route('POST', baseRoute + '/person/GetList')
   }
   getPostGetTree() {
-    return cy.route('POST', 'api/services/app/areaTree/GetTree')
+    return cy.route('POST', baseRoute + '/areaTree/GetTree')
   }
   getPostGetLoggedUserId() {
-    return cy.route('POST', 'api/services/app/areaTree/GetLoggedUserId')
+    return cy.route('POST', baseRoute + '/areaTree/GetLoggedUserId')
   }
   getPostGetSkillKnowledgeList() {
-    return cy.route('POST', 'api/services/app/skillKnowledge/GetSkillKnowledgeList')
+    return cy.route('POST', baseRoute + '/skillKnowledge/GetSkillKnowledgeList')
   }
   getPostValidateLogin() {
-    return cy.route('POST', 'api/services/app/person/ValidateLogin')
+    return cy.route('POST', baseRoute + '/person/ValidateLogin')
   }
-  getPostGetPreSaveConditions(){
-    return cy.route('POST','api/services/app/person/GetPreSaveConditions')
+  getPostGetPreSaveConditions() {
+    return cy.route('POST', baseRoute + '/person/GetPreSaveConditions')
   }
-  getPostSaveEmployeeSystemInfo(){
-    return cy.route('POST','api/services/app/person/SaveEmployeeSystemInfo')
+  getPostSaveEmployeeSystemInfo() {
+    return cy.route('POST', baseRoute + '/person/SaveEmployeeSystemInfo')
   }
-  getPostGetLoggedManagementCycle(){
-    return cy.route('POST','api/services/app/managementCycle/GetLoggedManagementCycle')
+  getPostGetLoggedManagementCycle() {
+    return cy.route('POST', baseRoute + '/managementCycle/GetLoggedManagementCycle')
   }
-  getPostGetLoggedUserModulesWithAccess(){
-    return cy.route('POST','api/services/app/modules/GetLoggedUserModulesWithAccess')
+  getPostGetLoggedUserModulesWithAccess() {
+    return cy.route('POST', baseRoute + '/modules/GetLoggedUserModulesWithAccess')
   }
-  getPostGetPerformanceInfo(){
-    return cy.route('POST','api/services/app/initialDashboard/GetPerformanceInfo')
+  getPostGetPerformanceInfo() {
+    return cy.route('POST', baseRoute + '/initialDashboard/GetPerformanceInfo')
   }
-  getPostGetLoggedUserActions(){
-    return cy.route('POST','api/services/app/action/GetLoggedUserActions')
+  getPostGetLoggedUserActions() {
+    return cy.route('POST', baseRoute + '/action/GetLoggedUserActions')
   }
-  getPostGetEvaluationFormDashboardSummary(){
-    return cy.route('POST','api/services/app/evaluator/GetEvaluationFormDashboardSummary*')
+  getPostGetEvaluationFormDashboardSummary() {
+    return cy.route('POST', baseRoute + '/evaluator/GetEvaluationFormDashboardSummary*')
   }
-  getPostGetWaitingApprovalCount(){
-    return cy.route('POST','api/services/app/idpDashboard/GetWaitingApprovalCount*')
+  getPostGetWaitingApprovalCount() {
+    return cy.route('POST', baseRoute + '/idpDashboard/GetWaitingApprovalCount*')
   }
-  getPostGetMyActions(){
-    return cy.route('POST','api/services/app/idpDashboard/GetMyActions')
+  getPostGetMyActions() {
+    return cy.route('POST', baseRoute + '/idpDashboard/GetMyActions')
   }
-  getPosthasVigentResultReleased(){
-    return cy.route('POST','api/services/app/evaluationForm/hasVigentResultReleased')
+  getPosthasVigentResultReleased() {
+    return cy.route('POST', baseRoute + '/evaluationForm/hasVigentResultReleased')
   }
-  getPostGetLoggedUserProfileCompletionRate(){
-    return cy.route('POST','api/services/app/initialDashboard/GetLoggedUserProfileCompletionRate')
+  getPostGetLoggedUserProfileCompletionRate() {
+    return cy.route('POST', baseRoute + '/initialDashboard/GetLoggedUserProfileCompletionRate')
   }
-  getPostGetTeamSystemAccess(){
-    return cy.route('POST','api/services/app/initialDashboard/GetTeamSystemAccess')
+  getPostGetTeamSystemAccess() {
+    return cy.route('POST', baseRoute + '/initialDashboard/GetTeamSystemAccess')
   }
 }
 
